@@ -8,17 +8,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.deezer.sdk.model.PlayableEntity;
 import com.deezer.sdk.model.Track;
 
+import cordova.plugin.deezer.DeezerSDKController;
+
 import android.util.Log;
-import android.widget.Toast;
 
 
-/**
- *
- * @author aleksey
- *
- */
 public class DeezerPlugin extends CordovaPlugin {
 
     private final static String METHOD_TAG_INIT = "init";
@@ -44,7 +41,7 @@ public class DeezerPlugin extends CordovaPlugin {
     private CordovaInterface mInterface;
     private CordovaWebView mWebView;
 
-    private DeezerJSListener mListener;
+    private DeezerSDKController mListener;
 
     @Override
     public void initialize(final CordovaInterface cordova, final CordovaWebView webView) {
@@ -194,12 +191,12 @@ public class DeezerPlugin extends CordovaPlugin {
         });
     }
 
-    public void sentToJS_onCurrentTrack(final int index, final Track track) {
+    public void sentToJS_onCurrentTrack(final int index, final PlayableEntity track) {
         JSONArray array = new JSONArray();
         array.put(index);
 
         try {
-            array.put(track.getTitle() );//was .toJson()
+            array.put(track.getId() );//was .toJson()
             sendUpdate(".onCurrentTrack", new Object[] {
                     array
             });

@@ -1,9 +1,5 @@
 package cordova.plugin.deezer;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.util.List;
-
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.LOG;
 import org.json.JSONArray;
@@ -14,12 +10,11 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.deezer.sdk.model.Track;
 import com.deezer.sdk.network.connect.DeezerConnect;
+import com.deezer.sdk.network.connect.SessionStore;
 import com.deezer.sdk.network.connect.event.DialogError;
 import com.deezer.sdk.network.connect.event.DialogListener;
 import com.deezer.sdk.network.request.event.DeezerError;
-import com.deezer.sdk.network.request.event.OAuthException;
 import com.deezer.sdk.player.AbstractTrackListPlayer;
 import com.deezer.sdk.player.AlbumPlayer;
 import com.deezer.sdk.player.ArtistRadioPlayer;
@@ -33,10 +28,11 @@ import com.deezer.sdk.player.event.RadioPlayerListener;
 import com.deezer.sdk.player.exception.TooManyPlayersExceptions;
 import com.deezer.sdk.player.networkcheck.WifiAndMobileNetworkStateChecker;
 
+import com.deezer.sdk.model.PlayableEntity;
 
+import cordova.plugin.deezer.DeezerPlugin;
 
-
-public class DeezerSDKController implements DeezerJSListener {
+public class DeezerSDKController {
 
     private final static String LOG_TAG = "DeezerSDKController";
     public static String token;
@@ -67,14 +63,20 @@ public class DeezerSDKController implements DeezerJSListener {
     // DeezerJSListener Implementation
     // /////////////////////////////////////////////////////////////////////////////
 
-    @Override
     public void init(final CallbackContext callbackContext, final String appId) {
         mConnect = new DeezerConnect(mActivity, appId);
-        callbackContext.success();
 
+        SessionStore sessionStore = new SessionStore();
+        if (sessionStore.restore(mConnect, mActivity)) {
+            // The restored session is valid, navigate to the Home Activity
+            Log.i(LOG_TAG, "Deezer sessionStore works");
+        } else {
+            Log.i(LOG_TAG, "Deezer sessionStore fails");
+        }
+
+        callbackContext.success();
     }
 
-    @Override
     public void login(final CallbackContext callbackContext) {
         final AuthListener listener = new AuthListener(callbackContext);
 
@@ -105,7 +107,7 @@ public class DeezerSDKController implements DeezerJSListener {
     public void getToken(CallbackContext context){
         context.success(this.token);
     }
-    @Override
+
     public boolean setVolume(float val1, float val2) {
         if(mPlayerWrapper.setStereoVolume(val1,val2)){
             JSONArray arr = new JSONArray();
@@ -120,7 +122,6 @@ public class DeezerSDKController implements DeezerJSListener {
         }
     }
 
-    @Override
     public void onPlayTracks(final CallbackContext callbackContext, final String ids,
                              final int index, final int offset, final boolean autoPlay, final boolean addToQueue) {
         if (mPlayerWrapper != null) {
@@ -146,11 +147,7 @@ public class DeezerSDKController implements DeezerJSListener {
             ((TrackPlayer) mPlayerWrapper).playTrack(trackId);
 
         }
-        catch (OAuthException e) {
-            Log.e(LOG_TAG, "OAuthException", e);
-            callbackContext.error("OAuthException");
-            mPlugin.sendUpdate(".onError",new Object[]{errorMessage.put(e)});
-        }
+
         catch (TooManyPlayersExceptions e) {
             Log.e(LOG_TAG, "TooManyPlayersExceptions", e);
             callbackContext.error("TooManyPlayersExceptions");
@@ -167,7 +164,6 @@ public class DeezerSDKController implements DeezerJSListener {
             mPlugin.sendUpdate(".onError",new Object[]{errorMessage.put(e)});
         }   }
 
-    @Override
     public void onPlayAlbum(final CallbackContext callbackContext, final String id,
                             final int index, final int offset, final boolean autoPlay, final boolean addToQueue) {
 
@@ -195,11 +191,6 @@ public class DeezerSDKController implements DeezerJSListener {
             ((AlbumPlayer) mPlayerWrapper).playAlbum(albumId, index);
 
         }
-        catch (OAuthException e) {
-            Log.e(LOG_TAG, "OAuthException", e);
-            callbackContext.error("OAuthException");
-            mPlugin.sendUpdate(".onError",new Object[]{errorMessage.put(e)});
-        }
         catch (TooManyPlayersExceptions e) {
             Log.e(LOG_TAG, "TooManyPlayersExceptions", e);
             callbackContext.error("TooManyPlayersExceptions");
@@ -218,7 +209,6 @@ public class DeezerSDKController implements DeezerJSListener {
 
     }
 
-    @Override
     public void onPlayPlaylist(final CallbackContext callbackContext, final String id,
                                final int index, final int offset, final boolean autoPlay, final boolean addToQueue) {
         // check if a previous player exists
@@ -245,11 +235,6 @@ public class DeezerSDKController implements DeezerJSListener {
             ((PlaylistPlayer) mPlayerWrapper).playPlaylist(playlistId, index);
 
         }
-        catch (OAuthException e) {
-            Log.e(LOG_TAG, "OAuthException", e);
-            callbackContext.error("OAuthException");
-            mPlugin.sendUpdate(".onError",new Object[]{errorMessage.put(e)});
-        }
         catch (TooManyPlayersExceptions e) {
             Log.e(LOG_TAG, "TooManyPlayersExceptions", e);
             callbackContext.error("TooManyPlayersExceptions");
@@ -267,7 +252,6 @@ public class DeezerSDKController implements DeezerJSListener {
         }
     }
 
-    @Override
     public void onPlayRadio(final CallbackContext callbackContext, final String id,
                             final int index, final int offset, final boolean autoPlay, final boolean addToQueue) {
         // check if a previous player exists
@@ -295,11 +279,6 @@ public class DeezerSDKController implements DeezerJSListener {
             ((RadioPlayer) mPlayerWrapper).playRadio(radioId);
 
         }
-        catch (OAuthException e) {
-            Log.e(LOG_TAG, "OAuthException", e);
-            callbackContext.error("OAuthException");
-            mPlugin.sendUpdate(".onError",new Object[]{errorMessage.put(e)});
-        }
         catch (TooManyPlayersExceptions e) {
             Log.e(LOG_TAG, "TooManyPlayersExceptions", e);
             callbackContext.error("TooManyPlayersExceptions");
@@ -317,7 +296,6 @@ public class DeezerSDKController implements DeezerJSListener {
         }
     }
 
-    @Override
     public void onPlayArtistRadio(final CallbackContext callbackContext, final String id,
                                   final int index, final int offset, final boolean autoPlay, final boolean addToQueue) {
         // check if a previous player exists
@@ -344,11 +322,6 @@ public class DeezerSDKController implements DeezerJSListener {
             ((ArtistRadioPlayer) mPlayerWrapper).playArtistRadio(radioId);
 
         }
-        catch (OAuthException e) {
-            Log.e(LOG_TAG, "OAuthException", e);
-            callbackContext.error("OAuthException");
-            mPlugin.sendUpdate(".onError",new Object[]{errorMessage.put(e)});
-        }
         catch (TooManyPlayersExceptions e) {
             Log.e(LOG_TAG, "TooManyPlayersExceptions", e);
             callbackContext.error("TooManyPlayersExceptions");
@@ -366,7 +339,6 @@ public class DeezerSDKController implements DeezerJSListener {
         }
     }
 
-    @Override
     public void onPlay(final CallbackContext callbackContext) {
         Log.i(LOG_TAG, "onPlay");
 
@@ -379,7 +351,6 @@ public class DeezerSDKController implements DeezerJSListener {
 
     }
 
-    @Override
     public void onPause(final CallbackContext callbackContext) {
         Log.i(LOG_TAG, "onPause");
 
@@ -393,7 +364,6 @@ public class DeezerSDKController implements DeezerJSListener {
 
     }
 
-    @Override
     public void onNext(final CallbackContext callbackContext) {
         Log.i(LOG_TAG, "onNext");
 
@@ -408,7 +378,6 @@ public class DeezerSDKController implements DeezerJSListener {
         }
     }
 
-    @Override
     public void onPrev(final CallbackContext callbackContext) {
         Log.i(LOG_TAG, "onPrev");
 
@@ -453,6 +422,11 @@ public class DeezerSDKController implements DeezerJSListener {
                 }
             }
 
+            // add save session
+            // store the current authentication info
+            SessionStore sessionStore = new SessionStore();
+            sessionStore.save(mConnect, mActivity);
+
             mContext.success(dict);
         }
 
@@ -467,22 +441,20 @@ public class DeezerSDKController implements DeezerJSListener {
             }
         }
 
-        @Override
         public void onDeezerError(final DeezerError e) {
             Log.e(LOG_TAG, "onDeezerError", e);
             mContext.error("DeezerError");
         }
 
-        @Override
         public void onError(final DialogError e) {
             Log.e(LOG_TAG, "onError", e);
             mContext.error("Error");
         }
 
         @Override
-        public void onOAuthException(final OAuthException e) {
-            Log.e(LOG_TAG, "onOAuthException", e);
-            mContext.error("OAuthException");
+        public void onException(final Exception e) {
+            Log.e(LOG_TAG, "onException", e);
+            mContext.error("Error");
         }
     }
 
@@ -496,9 +468,8 @@ public class DeezerSDKController implements DeezerJSListener {
             mContext = context;
         }
 
-        @Override
-        public void onPlayTrack(final Track track) {
-            Log.i(LOG_TAG, "onPlayTrack " + track.getTitle());
+        public void onPlayTrack(final PlayableEntity track) {
+            Log.i(LOG_TAG, "onPlayTrack " + track.getId());
 
             if (!mTrackListSent) {
                 if (mPlayerWrapper instanceof AbstractTrackListPlayer) {
@@ -527,45 +498,22 @@ public class DeezerSDKController implements DeezerJSListener {
             }
             mPlugin.sentToJS_onCurrentTrack(-1, track);
         }
-        @Override
-        public void onTrackEnded(final Track track) {
+        public void onTrackEnded(final PlayableEntity track) {
             Log.i(LOG_TAG, "onTrackEnded");
             JSONArray array = new JSONArray();
             mPlugin.sendUpdate(".onTrackEnded",new Object[]{array});
         }
 
-        @Override
         public void onAllTracksEnded() {
             Log.i(LOG_TAG, "onAllTracksEnded");
         }
 
-        @Override
-        public void onRequestDeezerError(final DeezerError e, final Object request) {
+
+        public void onRequestException(final Exception e, final Object request) {
             Log.e(LOG_TAG, "onRequestDeezerError", e);
         }
 
-        @Override
-        public void onRequestIOException(final IOException e, final Object request) {
-            Log.e(LOG_TAG, "onRequestIOException", e);
-        }
 
-        @Override
-        public void onRequestJSONException(final JSONException e, final Object request) {
-            Log.e(LOG_TAG, "onRequestJSONException", e);
-        }
-
-        @Override
-        public void onRequestMalformedURLException(final MalformedURLException e,
-                                                   final Object request) {
-            Log.e(LOG_TAG, "onRequestMalformedURLException", e);
-        }
-
-        @Override
-        public void onRequestOAuthException(final OAuthException e, final Object request) {
-            Log.e(LOG_TAG, "onRequestMalformedURLException", e);
-        }
-
-        @Override
         public void onTooManySkipsException() {
             Log.e(LOG_TAG, "onTooManySkipsException");
         }

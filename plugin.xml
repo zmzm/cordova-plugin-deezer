@@ -19,17 +19,9 @@
         
         <!-- Library files -->
         <source-file
-        src="src/android/libs/deezer-sdk-0.10.5.jar"
+        src="src/android/libs/deezer-sdk-0.11.2.aar"
         target-dir="libs/" />
-        <source-file
-        src="src/android/libs/armeabi/libdeezer.so"
-        target-dir="libs/armeabi/" />
-        <source-file
-        src="src/android/libs/armeabi-v7a/libdeezer.so"
-        target-dir="libs/armeabi-v7a/" />
-        <source-file
-        src="src/android/libs/x86/libdeezer.so"
-        target-dir="libs/x86/" />
+
         
         <!-- Android manifest permissions -->
         <config-file target="AndroidManifest.xml" parent="/*">

@@ -8,7 +8,7 @@ This plugin included all main functions of audio player for Deezer servise
 
 You may install latest version from master
 ```sh
-cordova plugin add https://github.com/jeweller1980stepanets/Cordova-Plugin-Deezer-IOS-ANDROID
+cordova plugin add https://github.com/procoders/cordova-plugin-deezer
 ```
 ### Removing the Plugin from project
 ```sh
@@ -76,6 +76,7 @@ deezerCordova.Events.onPosition = function(args){..`code`..}
 
 ### Authors
 - Aleksey Stepanets
+- Oleg Kopachovets
 
 
 

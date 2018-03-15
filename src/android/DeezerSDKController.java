@@ -74,7 +74,7 @@ public class DeezerSDKController {
 
     }
 
-    public boolean setAuthInfo(final CallbackContext callbackContext, final String token, final String userId, final String userString) {
+    public void setAuthInfo(final CallbackContext callbackContext, final String token, final String userId, final String userString) {
         Editor context1;
         (context1 = mActivity.getSharedPreferences("deezer-session", 0).edit()).putString("access_token", token);
 
@@ -428,7 +428,7 @@ public class DeezerSDKController {
                     dict.put(key, bundle.getString(key));
                 }
                 catch (JSONException e) {
-                    Log.e("JSONException", e);
+                    Log.e(LOG_TAG, "JSONException", e);
                 }
             }
 

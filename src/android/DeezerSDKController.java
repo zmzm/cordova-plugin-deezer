@@ -75,7 +75,6 @@ public class DeezerSDKController {
     }
 
     public boolean setAuthInfo(final CallbackContext callbackContext, final String token, final String userId, final String userString) {
-        Log.i("AUTH_INFO", token + " " + userId + " " + userString);
         Editor context1;
         (context1 = mActivity.getSharedPreferences("deezer-session", 0).edit()).putString("access_token", token);
 

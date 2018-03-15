@@ -6,31 +6,28 @@
     </js-module>
     
     <platform name="android">
-        <config-file parent="/*" target="res/xml/config.xml">
+        <config-file parent="/*" target="app/src/main/res/xml/config.xml">
             <feature name="DeezerPlugin">
                 <param name="android-package" value="cordova.plugin.deezer.DeezerPlugin" />
             </feature>
         </config-file>
-        
-        <config-file parent="/manifest/application" target="app/src/main/AndroidManifest.xml" />
+	
         <source-file src="src/android/DeezerPlugin.java" target-dir="src/cordova/plugin/deezer/DeezerPlugin" />
         <source-file src="src/android/DeezerJSListener.java" target-dir="src/cordova/plugin/deezer/DeezerPlugin" />
         <source-file src="src/android/DeezerSDKController.java" target-dir="src/cordova/plugin/deezer/DeezerPlugin" />
         
         <!-- Library files -->
-        <source-file src="src/android/libs/deezer-sdk-0.11.2.aar" target-dir="libs/" />
+        <source-file src="src/android/libs/deezer-sdk-0.11.2.aar" target-dir="app/src/main/libs/" />
         <framework custom="true" src="src/android/deezer.gradle" type="gradleReference" />
-
         
-        <!-- Android manifest permissions -->
+     <!-- Android manifest permissions -->
         <config-file target="app/src/main/AndroidManifest.xml" parent="/manifest/application">
             <uses-permission android:name="android.permission.INTERNET" />
             <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
             <uses-permission android:name="android.permission.WAKE_LOCK" />
         </config-file>
-        
     </platform>
-    
+
     <platform name="ios">
         <config-file parent="/*" target="config.xml">
             <feature name="DeezerPlugin">
@@ -83,4 +80,5 @@
         <source-file src="src/ios/include/NSError+DZRPlayer.h" />
         
     </platform>
+    
 </plugin>

@@ -78,6 +78,7 @@ public class DeezerSDKController {
         Editor context1;
         (context1 = mActivity.getSharedPreferences("deezer-session", 0).edit()).putString("access_token", token);
 
+        context1.putLong("expires_in", 0);
         context1.putString("user", userString);
         context1.putString("access_token_" + userId, token);
         context1.putLong("expires_in_" + userId, 0);

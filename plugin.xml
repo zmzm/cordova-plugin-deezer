@@ -12,7 +12,6 @@
             </feature>
         </config-file>
         
-        <config-file parent="/manifest" target="app/src/main/AndroidManifest.xml" />
         <source-file src="src/android/DeezerPlugin.java" target-dir="src/cordova/plugin/deezer/DeezerPlugin" />
         <source-file src="src/android/DeezerJSListener.java" target-dir="src/cordova/plugin/deezer/DeezerPlugin" />
         <source-file src="src/android/DeezerSDKController.java" target-dir="src/cordova/plugin/deezer/DeezerPlugin" />

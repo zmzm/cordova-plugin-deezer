@@ -10,6 +10,24 @@ module.exports = {
       [appId]
     );
   },
+  getCurrentUserAlbums: function(success, error) {
+    exec(
+      success || function() {},
+      error || function() {},
+      'DeezerPlugin',
+      'getAlbums',
+      []
+    );
+  },
+  getTracksByAlbum: function(success, error, albumId) {
+    exec(
+      success || function() {},
+      error || function() {},
+      'DeezerPlugin',
+      'getTracksByAlbum',
+      [albumId]
+    );
+  },
   setAuthInfo: function(success, error, token, userId, userString) {
     exec(
       success || function() {},

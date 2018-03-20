@@ -43,5 +43,9 @@ public interface DeezerJSListener {
 
     void getAlbums(CallbackContext callbackContext);
 
-    void getTracksByAlbum(CallbackContext callbackContext, String albumId);
+    void getTracksByAlbum(CallbackContext callbackContext, long albumId);
+
+    void getPlaylists(CallbackContext callbackContext);
+
+    void getTracksByPlaylist(CallbackContext callbackContext, long playlistId);
 }

@@ -41,6 +41,7 @@ import android.content.SharedPreferences.Editor;
 import com.deezer.sdk.model.User;
 import com.deezer.sdk.model.Album;
 import com.deezer.sdk.model.Track;
+import com.deezer.sdk.model.Playlist;
 
 import com.deezer.sdk.model.PlayableEntity;
 
@@ -121,7 +122,7 @@ public class DeezerSDKController {
         mConnect.requestAsync(request, listener);
     }
 
-    public void getTracksByAlbum(final CallbackContext callbackContext, final String albumId) {
+    public void getTracksByAlbum(final CallbackContext callbackContext, final long albumId) {
         RequestListener listener = new JsonRequestListener() {
             public void onResult(Object result, Object requestId) {
                 List<Track> tracks = (List<Track>) result;
@@ -141,6 +142,52 @@ public class DeezerSDKController {
             public void onException(Exception e, Object requestId) {}
         };
         DeezerRequest request = DeezerRequestFactory.requestAlbumTracks(albumId);
+        mConnect.requestAsync(request, listener);
+    }
+
+    public void getPlaylists(final CallbackContext callbackContext) {
+        RequestListener listener = new JsonRequestListener() {
+            public void onResult(Object result, Object requestId) {
+                List<Playlist> playlists = (List<Playlist>) result;
+                JSONArray data = new JSONArray();
+
+                for (Playlist playlist : playlists) {
+                    try {
+                        data.put(playlist.toJson());
+                    } 
+                    catch (JSONException e) {}
+                }
+                callbackContext.success(data);
+            }
+
+            public void onUnparsedResult(String requestResponse, Object requestId) {}
+
+            public void onException(Exception e, Object requestId) {}
+        };
+        DeezerRequest request = DeezerRequestFactory.requestCurrentUserPlaylists();
+        mConnect.requestAsync(request, listener);
+    }
+
+    public void getTracksByPlaylist(final CallbackContext callbackContext, final long playlistId) {
+        RequestListener listener = new JsonRequestListener() {
+            public void onResult(Object result, Object requestId) {
+                List<Track> tracks = (List<Track>) result;
+                JSONArray data = new JSONArray();
+
+                for (Track track : tracks) {
+                    try {
+                        data.put(track.toJson());
+                    } 
+                    catch (JSONException e) {}
+                }
+                callbackContext.success(data);
+            }
+
+            public void onUnparsedResult(String requestResponse, Object requestId) {}
+
+            public void onException(Exception e, Object requestId) {}
+        };
+        DeezerRequest request = DeezerRequestFactory.requestPlaylistTracks(playlistId);
         mConnect.requestAsync(request, listener);
     }
 

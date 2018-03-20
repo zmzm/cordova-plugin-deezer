@@ -41,6 +41,8 @@ public class DeezerPlugin extends CordovaPlugin {
 
     private final static String METHOD_GET_ALBUMS = "getAlbums";
     private final static String METHOD_GET_TRACKS_BY_ALBUM = "getTracksByAlbum";
+    private final static String METHOD_GET_PLAYLISTS = "getPlaylists";
+    private final static String METHOD_GET_TRACKS_BY_PLAYLIST = "getTracksByPlaylist";
 
     private CordovaInterface mInterface;
     private CordovaWebView mWebView;
@@ -162,8 +164,13 @@ public class DeezerPlugin extends CordovaPlugin {
         } else if(action.equals(METHOD_GET_ALBUMS)){
             mListener.getAlbums(callbackContext);
         } else if(action.equals(METHOD_GET_TRACKS_BY_ALBUM)){
-            String albumId = args.getString(0);
+            long albumId = args.getLong(0);
             mListener.getTracksByAlbum(callbackContext, albumId);
+        } else if(action.equals(METHOD_GET_PLAYLISTS)){
+            mListener.getPlaylists(callbackContext);
+        } else if(action.equals(METHOD_GET_TRACKS_BY_PLAYLIST)){
+            long playlistId = args.getLong(0);
+            mListener.getTracksByPlaylist(callbackContext, playlistId);
         } else {
             // method not found !
             return false;

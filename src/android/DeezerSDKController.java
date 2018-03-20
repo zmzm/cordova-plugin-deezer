@@ -195,7 +195,7 @@ public class DeezerSDKController {
     public void getRadios(final CallbackContext callbackContext) {
         RequestListener listener = new JsonRequestListener() {
             public void onResult(Object result, Object requestId) {
-                List<Radio> raios = (List<Radio>) result;
+                List<Radio> radios = (List<Radio>) result;
                 JSONArray data = new JSONArray();
 
                 for (Radio radio : radios) {

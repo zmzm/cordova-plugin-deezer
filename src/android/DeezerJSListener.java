@@ -40,4 +40,16 @@ public interface DeezerJSListener {
     void getToken(CallbackContext callbackContext);
 
     void setAuthInfo(CallbackContext callbackContext, String token, String userId, String userString);
+
+    void getAlbums(CallbackContext callbackContext);
+
+    void getTracksByAlbum(CallbackContext callbackContext, long albumId);
+
+    void getPlaylists(CallbackContext callbackContext);
+
+    void getTracksByPlaylist(CallbackContext callbackContext, long playlistId);
+    
+    void getRadios(CallbackContext callbackContext);
+
+    void getTracksByRadios(CallbackContext callbackContext, long radioId);
 }

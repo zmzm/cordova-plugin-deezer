@@ -39,6 +39,9 @@ public class DeezerPlugin extends CordovaPlugin {
     private final static String METHOD_GET_TOKEN = "getToken";
     private final static String METHOD_SET_AUTH_INFO = "setAuthInfo";
 
+    private final static String METHOD_GET_ALBUMS = "getAlbums";
+    private final static String METHOD_GET_TRACKS_BY_ALBUM = "getTracksByAlbum";
+
     private CordovaInterface mInterface;
     private CordovaWebView mWebView;
 
@@ -156,6 +159,11 @@ public class DeezerPlugin extends CordovaPlugin {
             String userId = args.getString(1);
             String userString = args.getString(2);
             mListener.setAuthInfo(callbackContext, token, userId, userString);
+        } else if(action.equals(METHOD_GET_ALBUMS)){
+            mListener.getAlbums(callbackContext);
+        } else if(action.equals(METHOD_GET_TRACKS_BY_ALBUM)){
+            String albumId = args.getString(0);
+            mListener.getTracksByAlbum(callbackContext, albumId);
         } else {
             // method not found !
             return false;

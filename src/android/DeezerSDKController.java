@@ -1,5 +1,7 @@
 package cordova.plugin.deezer;
 
+import java.util.List;
+
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.LOG;
 import org.json.JSONArray;
@@ -10,7 +12,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 
-
+import com.deezer.sdk.network.request.DeezerRequest;
 import com.deezer.sdk.network.connect.DeezerConnect;
 import com.deezer.sdk.network.connect.SessionStore;
 import com.deezer.sdk.network.connect.event.DialogError;
@@ -29,10 +31,16 @@ import com.deezer.sdk.player.event.RadioPlayerListener;
 import com.deezer.sdk.player.exception.TooManyPlayersExceptions;
 import com.deezer.sdk.player.networkcheck.WifiAndMobileNetworkStateChecker;
 
+import com.deezer.sdk.network.request.event.RequestListener;
+import com.deezer.sdk.network.request.event.JsonRequestListener;
+import com.deezer.sdk.network.request.DeezerRequestFactory;
+
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
 import com.deezer.sdk.model.User;
+import com.deezer.sdk.model.Album;
+import com.deezer.sdk.model.Track;
 
 import com.deezer.sdk.model.PlayableEntity;
 
@@ -88,6 +96,52 @@ public class DeezerSDKController {
         SessionStore sessionStore = new SessionStore();
         sessionStore.restore(mConnect, mActivity);
         callbackContext.success();        
+    }
+
+    public void getAlbums(final CallbackContext callbackContext) {
+        RequestListener listener = new JsonRequestListener() {
+            public void onResult(Object result, Object requestId) {
+                List<Album> albums = (List<Album>) result;
+                JSONArray data = new JSONArray();
+
+                for (Album album : albums) {
+                    try {
+                        data.put(album.toJson());
+                    } 
+                    catch (JSONException e) {}
+                }
+                callbackContext.success(data);
+            }
+
+            public void onUnparsedResult(String requestResponse, Object requestId) {}
+
+            public void onException(Exception e, Object requestId) {}
+        };
+        DeezerRequest request = DeezerRequestFactory.requestCurrentUserAlbums();
+        mConnect.requestAsync(request, listener);
+    }
+
+    public void getTracksByAlbum(final CallbackContext callbackContext, final String albumId) {
+        RequestListener listener = new JsonRequestListener() {
+            public void onResult(Object result, Object requestId) {
+                List<Track> tracks = (List<Track>) result;
+                JSONArray data = new JSONArray();
+
+                for (Track track : tracks) {
+                    try {
+                        data.put(track.toJson());
+                    } 
+                    catch (JSONException e) {}
+                }
+                callbackContext.success(data);
+            }
+
+            public void onUnparsedResult(String requestResponse, Object requestId) {}
+
+            public void onException(Exception e, Object requestId) {}
+        };
+        DeezerRequest request = DeezerRequestFactory.requestAlbumTracks(albumId);
+        mConnect.requestAsync(request, listener);
     }
 
     public void login(final CallbackContext callbackContext) {

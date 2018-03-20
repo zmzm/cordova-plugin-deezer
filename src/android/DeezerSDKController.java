@@ -630,7 +630,7 @@ public class DeezerSDKController {
         public void onPlayTrack(final PlayableEntity track) {
             Log.i(LOG_TAG, "onPlayTrack " + track.getId());
 
-            if (!mTrackListSent) {
+         /*   if (!mTrackListSent) {
                 if (mPlayerWrapper instanceof AbstractTrackListPlayer) {
 
                     JSONObject callback = new JSONObject();
@@ -644,7 +644,7 @@ public class DeezerSDKController {
                      catch (JSONException e) {
                      // ignore
                      }
-                     }*/
+                     }
 
                     try {
                         callback.put("data", data);
@@ -654,8 +654,9 @@ public class DeezerSDKController {
                         mContext.error(0);
                     }
                 }
-            }
+        }*/
             mPlugin.sentToJS_onCurrentTrack(-1, track);
+            mContext.success();
         }
         public void onTrackEnded(final PlayableEntity track) {
             Log.i(LOG_TAG, "onTrackEnded");

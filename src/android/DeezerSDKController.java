@@ -200,7 +200,7 @@ public class DeezerSDKController {
 
                 for (Radio radio : radios) {
                     try {
-                        data.put(raios.toJson());
+                        data.put(radio.toJson());
                     } 
                     catch (JSONException e) {}
                 }

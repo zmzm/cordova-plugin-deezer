@@ -48,4 +48,8 @@ public interface DeezerJSListener {
     void getPlaylists(CallbackContext callbackContext);
 
     void getTracksByPlaylist(CallbackContext callbackContext, long playlistId);
+    
+    void getRadios(CallbackContext callbackContext);
+
+    void getTracksByRadios(CallbackContext callbackContext, long radioId);
 }

@@ -45,6 +45,7 @@ public class DeezerPlugin extends CordovaPlugin {
     private final static String METHOD_GET_TRACKS_BY_PLAYLIST = "getTracksByPlaylist";
     private final static String METHOD_GET_RADIOS = "getRadios";
     private final static String METHOD_GET_TRACKS_BY_RADIO = "getTracksByRadio";
+    private final static String METHOD_GET_FLOW = "getFlow";
 
     private CordovaInterface mInterface;
     private CordovaWebView mWebView;
@@ -178,6 +179,8 @@ public class DeezerPlugin extends CordovaPlugin {
         } else if(action.equals(METHOD_GET_TRACKS_BY_RADIO)){
             long radioId = args.getLong(0);
             mListener.getTracksByRadio(callbackContext, radioId);
+        } else if(action.equals(METHOD_GET_FLOW)){
+            mListener.getFlow(callbackContext);
         } else {
             // method not found !
             return false;

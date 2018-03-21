@@ -28,6 +28,51 @@ module.exports = {
       [albumId]
     );
   },
+  getCurrentUserPlaylists: function(success, error) {
+    exec(
+      success || function() {},
+      error || function() {},
+      'DeezerPlugin',
+      'getPlaylists',
+      []
+    );
+  },
+  getTracksByPlaylist: function(success, error, playlistId) {
+    exec(
+      success || function() {},
+      error || function() {},
+      'DeezerPlugin',
+      'getTracksByPlaylist',
+      [playlistId]
+    );
+  },
+  getCurrentUserRadios: function(success, error) {
+    exec(
+      success || function() {},
+      error || function() {},
+      'DeezerPlugin',
+      'getRadios',
+      []
+    );
+  },
+  getTracksByRadio: function(success, error, radioId) {
+    exec(
+      success || function() {},
+      error || function() {},
+      'DeezerPlugin',
+      'getTracksByRadio',
+      [radioId]
+    );
+  },
+  getCurrentUserFlow: function(success, error) {
+    exec(
+      success || function() {},
+      error || function() {},
+      'DeezerPlugin',
+      'getFlow',
+      []
+    );
+  },
   setAuthInfo: function(success, error, token, userId, userString) {
     exec(
       success || function() {},

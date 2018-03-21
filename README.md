@@ -1,62 +1,88 @@
- [![N|Solid](http://procoders.tech/art/powered.png)](http://procoders.tech/)
+[![N|Solid](http://procoders.tech/art/powered.png)](http://procoders.tech/)
 
 # Cordova Deezer Plugin
+
 This plugin included all main functions of audio player for Deezer servise
 
 ## Installation
+
 **At first you must registering you application with** [Deezer](http://developers.deezer.com/sdk/ios)
 
 You may install latest version from master
+
 ```sh
 cordova plugin add https://github.com/vitali-bantsevich/cordova-plugin-deezer
 ```
+
 ### Removing the Plugin from project
+
 ```sh
 cordova plugin rm cordova.plugin.deezer
 ```
-## Supported Platforms
-> - Android
-> - iOS
 
+## Supported Platforms
+
+> * Android
+> * iOS
 
 ### Platform specific
+
 :warning: for iOS platform not implemented method `setVolume()` and `event onChengeVolume()`
 It will be fixed when this methods will be in Deezer SDK
 
 **Demo applications**
-> - https://github.com/jeweller1980stepanets/DeezerTestAppIOS for iOS
-> - https://github.com/jeweller1980stepanets/DeezerTestAppAndroid for android
+
+> * https://github.com/jeweller1980stepanets/DeezerTestAppIOS for iOS
+> * https://github.com/jeweller1980stepanets/DeezerTestAppAndroid for android
 
 ## Using the plugin
+
 > **You must have premium account from Deezer servise for playing music**
 
 After device is ready you must defined the main variable:
+
 ```javascript
 var deezerCordova = window.cordova.plugins.DeezerPlugin;
 ```
-:thumbsup: *After this you may use all method in your code.*
+
+:thumbsup: _After this you may use all method in your code._
 
 ## Methods
+
 All methods returning promises, but you can also use standard callback functions.
 
 ```javascript
-deezerCordova.init(onSuccess, onError,appId);
+deezerCordova.init(onSuccess, onError, appId);
 deezerCordova.login(onSuccess, onError);
-deezerCordova.playTrack(onSuccess, onError,trackId);
-deezerCordova.playAlbum(onSuccess, onError,albumId);
-deezerCordova.playPlaylist(onSuccess, onError,playlistId);
-deezerCordova.playRadio(onSuccess, onError,radioId);
+deezerCordova.setAuthInfo(onSuccess, onError, token, userId, userString); // userString -> is Stringify user profile
+deezerCordova.playTrack(onSuccess, onError, trackId);
+deezerCordova.playAlbum(onSuccess, onError, albumId);
+deezerCordova.playPlaylist(onSuccess, onError, playlistId);
+deezerCordova.playRadio(onSuccess, onError, radioId);
 deezerCordova.play();
 deezerCordova.pause();
 deezerCordova.next();
 deezerCordova.prev();
-deezerCordova.seek(position);//value between 0 - 100%
-deezerCordova.seek(position);//value in seconds
+deezerCordova.seek(position); //value between 0 - 100%
+deezerCordova.seek(position); //value in seconds
 deezerCordova.logout();
-deezerCordova.setVolume(val1,val2);//val1,val2 - the volume for the left and right channel (between 0-100%)
+deezerCordova.setVolume(val1, val2); //val1,val2 - the volume for the left and right channel (between 0-100%)
+```
+
+## API
+
+```javascript
+deezerCordova.getCurrentUserAlbums(onSuccess, onError);
+deezerCordova.getTracksByAlbum(onSuccess, onError, albumId);
+deezerCordova.getCurrentUserPlaylists(onSuccess, onError);
+deezerCordova.getTracksByPlaylist(onSuccess, onError, playlistId);
+deezerCordova.getCurrentUserRadios(onSuccess, onError);
+deezerCordova.getTracksByRadio(onSuccess, onError, radioId);
+deezerCordova.getCurrentUserFlow(onSuccess, onError);
 ```
 
 ## Events
+
 ```javascript
 onPosition : function(args){},//args[0] - position, args[1] - duration
 onBuffering : function (args){},//(args[0] * 100) + " %";
@@ -69,15 +95,14 @@ onError: function(args){}//args[0] - error message
 ```
 
 **Exemle for subscribe:**
+
 ```javascript
 deezerCordova.Events.onPosition = function(args){..`code`..}
 ```
 
-
 ### Authors
-- Aleksey Stepanets
-- Oleg Kopachovets
 
-
+* Aleksey Stepanets
+* Oleg Kopachovets
 
 [![N|Solid](http://procoders.tech/art/powered.png)](http://procoders.tech/)

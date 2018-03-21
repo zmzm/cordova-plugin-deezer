@@ -238,6 +238,29 @@ public class DeezerSDKController {
         mConnect.requestAsync(request, listener);
     }
 
+    public void getFlow(final CallbackContext callbackContext) {
+        RequestListener listener = new JsonRequestListener() {
+            public void onResult(Object result, Object requestId) {
+                List<Track> tracks = (List<Track>) result;
+                JSONArray data = new JSONArray();
+
+                for (Track track : tracks) {
+                    try {
+                        data.put(track.toJson());
+                    } 
+                    catch (JSONException e) {}
+                }
+                callbackContext.success(data);
+            }
+
+            public void onUnparsedResult(String requestResponse, Object requestId) {}
+
+            public void onException(Exception e, Object requestId) {}
+        };
+        DeezerRequest request = DeezerRequestFactory.requestCurrentUserFlow();
+        mConnect.requestAsync(request, listener);
+    }
+
     public void login(final CallbackContext callbackContext) {
         final AuthListener listener = new AuthListener(callbackContext);
 

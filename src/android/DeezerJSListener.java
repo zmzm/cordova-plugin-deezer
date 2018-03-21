@@ -52,4 +52,6 @@ public interface DeezerJSListener {
     void getRadios(CallbackContext callbackContext);
 
     void getTracksByRadios(CallbackContext callbackContext, long radioId);
+
+    void getFlow(CallbackContext callbackContext);
 }

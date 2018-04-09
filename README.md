@@ -97,7 +97,7 @@ onError: function(args){}//args[0] - error message
 **Exemle for subscribe:**
 
 ```javascript
-deezerCordova.Events.onPosition = function(args){..`code`..}
+deezerCordova.events.onPosition = function(args){..`code`..}
 ```
 
 ### Authors

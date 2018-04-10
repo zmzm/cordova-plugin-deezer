@@ -715,8 +715,8 @@ public class DeezerSDKController {
             }
 
             if (mPlugin != null) {
-                // mPlugin.sendToJs_positionChanged(position, duration);
-                // mPlugin.sendUpdate(".onPlayerPlay",new Object[]{});
+                mPlugin.sendToJs_positionChanged(position, duration);
+                mPlugin.sendUpdate(".onPlayerPlay",new Object[]{});
             }
         }
     }
@@ -728,7 +728,7 @@ public class DeezerSDKController {
             //Log.i(LOG_TAG, "onBufferProgress progressMS: " + progressMS);
             float position = (float) progressMS / 1000;
             if (mPlugin != null) {
-                //mPlugin.sendToJS_bufferPosition(position);
+                mPlugin.sendToJS_bufferPosition(position);
             }
         }
     }

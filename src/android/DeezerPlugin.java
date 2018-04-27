@@ -92,13 +92,29 @@ public class DeezerPlugin extends CordovaPlugin {
             JSONObject json = args.getJSONObject(0);
             String command = json.optString("command");
             if (command.equals("play")) {
-                mListener.onPlay(callbackContext);
+                this.cordova.getThreadPool().execute(new Runnable() {
+                    public void run() {
+                        mListener.onPlay(callbackContext);
+                    }
+                });
             } else if (command.equals("pause")) {
-                mListener.onPause(callbackContext);
+                this.cordova.getThreadPool().execute(new Runnable() {
+                    public void run() {
+                        mListener.onPause(callbackContext);
+                    }
+                });
             } else if (command.equals("next")) {
-                mListener.onNext(callbackContext);
+                this.cordova.getThreadPool().execute(new Runnable() {
+                    public void run() {
+                        mListener.onNext(callbackContext);
+                    }
+                });
             } else if (command.equals("prev")) {
-                mListener.onPrev(callbackContext);
+                this.cordova.getThreadPool().execute(new Runnable() {
+                    public void run() {
+                        mListener.onPrev(callbackContext);
+                    }
+                });
             }
 
         } else if (action.equalsIgnoreCase(METHOD_TAG_PLAYER_CONTROL)) {
@@ -163,24 +179,56 @@ public class DeezerPlugin extends CordovaPlugin {
             String token = args.getString(0);
             String userId = args.getString(1);
             String userString = args.getString(2);
-            mListener.setAuthInfo(callbackContext, token, userId, userString);
+            this.cordova.getThreadPool().execute(new Runnable() {
+                public void run() {
+                    mListener.setAuthInfo(callbackContext, token, userId, userString);
+                }
+            });
         } else if(action.equals(METHOD_GET_ALBUMS)){
-            mListener.getAlbums(callbackContext);
+            this.cordova.getThreadPool().execute(new Runnable() {
+                public void run() {
+                    mListener.getAlbums(callbackContext);
+                }
+            });
         } else if(action.equals(METHOD_GET_TRACKS_BY_ALBUM)){
             long albumId = args.getLong(0);
-            mListener.getTracksByAlbum(callbackContext, albumId);
+            this.cordova.getThreadPool().execute(new Runnable() {
+                public void run() {
+                    mListener.getTracksByAlbum(callbackContext, albumId);
+                }
+            });
         } else if(action.equals(METHOD_GET_PLAYLISTS)){
-            mListener.getPlaylists(callbackContext);
+            this.cordova.getThreadPool().execute(new Runnable() {
+                public void run() {
+                    mListener.getPlaylists(callbackContext);
+                }
+            });
         } else if(action.equals(METHOD_GET_TRACKS_BY_PLAYLIST)){
             long playlistId = args.getLong(0);
-            mListener.getTracksByPlaylist(callbackContext, playlistId);
+            this.cordova.getThreadPool().execute(new Runnable() {
+                public void run() {
+                    mListener.getTracksByPlaylist(callbackContext, playlistId);
+                }
+            });
         }  else if(action.equals(METHOD_GET_RADIOS)){
-            mListener.getRadios(callbackContext);
+            this.cordova.getThreadPool().execute(new Runnable() {
+                public void run() {
+                    mListener.getRadios(callbackContext);
+                }
+            });
         } else if(action.equals(METHOD_GET_TRACKS_BY_RADIO)){
             long radioId = args.getLong(0);
-            mListener.getTracksByRadio(callbackContext, radioId);
+            this.cordova.getThreadPool().execute(new Runnable() {
+                public void run() {
+                    mListener.getTracksByRadio(callbackContext, radioId);
+                }
+            });
         } else if(action.equals(METHOD_GET_FLOW)){
-            mListener.getFlow(callbackContext);
+            this.cordova.getThreadPool().execute(new Runnable() {
+                public void run() {
+                    mListener.getFlow(callbackContext);
+                }
+            });
         } else {
             // method not found !
             return false;

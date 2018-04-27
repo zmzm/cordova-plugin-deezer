@@ -143,6 +143,7 @@ public class DeezerSDKController {
             public void onException(Exception e, Object requestId) {}
         };
         DeezerRequest request = DeezerRequestFactory.requestAlbumTracks(albumId);
+        request.addParam("limit", "1000");
         mConnect.requestAsync(request, listener);
     }
 
@@ -189,6 +190,7 @@ public class DeezerSDKController {
             public void onException(Exception e, Object requestId) {}
         };
         DeezerRequest request = DeezerRequestFactory.requestPlaylistTracks(playlistId);
+        request.addParam("limit", "1000");
         mConnect.requestAsync(request, listener);
     }
 
@@ -235,6 +237,7 @@ public class DeezerSDKController {
             public void onException(Exception e, Object requestId) {}
         };
         DeezerRequest request = DeezerRequestFactory.requestRadioTracks(radioId);
+        request.addParam("limit", "1000");
         mConnect.requestAsync(request, listener);
     }
 

@@ -1,5 +1,5 @@
 {
-  "name": "Cordova-Plugin-Deezer-IOS-ANDROID",
+  "name": "cordova.plugin.deezer",
   "version": "0.0.5",
   "description": "Cordova Deezer plugin",
   "cordova": {

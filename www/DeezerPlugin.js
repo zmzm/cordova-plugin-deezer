@@ -231,13 +231,13 @@ module.exports = {
       //args[0] - left value, args[1] - right value
     },
     onLogedIn: function(arg) {
-      alert(arg);
+      // alert(arg);
     },
     onDidNotLogin: function(arg) {
-      alert(arg);
+      // alert(arg);
     },
     onError: function(arg) {
-      alert(arg[0]);
+      // alert(arg[0]);
     }
   }
 };

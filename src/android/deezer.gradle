@@ -6,5 +6,5 @@ repositories{
 }
 
 dependencies {
-    compile(name:'deezer_sdk_library-preview', ext:'aar')
+    compile(name:'deezer-sdk_library-release', ext:'aar')
 }

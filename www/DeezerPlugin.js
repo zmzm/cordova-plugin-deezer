@@ -25,7 +25,7 @@ module.exports = {
       error || function() {},
       'DeezerPlugin',
       'getTracksByAlbum',
-      [albumId]
+      [albumId, offset]
     );
   },
   getCurrentUserPlaylists: function(success, error) {
@@ -43,7 +43,7 @@ module.exports = {
       error || function() {},
       'DeezerPlugin',
       'getTracksByPlaylist',
-      [playlistId]
+      [playlistId, offset]
     );
   },
   getCurrentUserRadios: function(success, error) {
@@ -61,7 +61,7 @@ module.exports = {
       error || function() {},
       'DeezerPlugin',
       'getTracksByRadio',
-      [radioId]
+      [radioId, offset]
     );
   },
   getCurrentUserFlow: function(success, error) {

@@ -1,14 +1,14 @@
 {
-  "name": "cordova.plugin.deezer",
+  "name": "cordova-plugin-deezer",
   "version": "0.0.5",
   "description": "Cordova Deezer plugin",
   "cordova": {
-    "id": "cordova.plugin.deezer",
+    "id": "cordova-plugin-deezer",
     "platforms": ["android", "ios"]
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/vitali-bantsevich/cordova-plugin-deezer.git"
+    "url": "git+https://github.com/zmzm/cordova-plugin-deezer.git"
   },
   "keywords": ["ecosystem:cordova", "cordova-android", "cordova-ios"],
   "author": "",

@@ -43,15 +43,15 @@ public interface DeezerJSListener {
 
     void getAlbums(CallbackContext callbackContext);
 
-    void getTracksByAlbum(CallbackContext callbackContext, long albumId);
+    void getTracksByAlbum(CallbackContext callbackContext, long albumId, long offset);
 
     void getPlaylists(CallbackContext callbackContext);
 
-    void getTracksByPlaylist(CallbackContext callbackContext, long playlistId);
+    void getTracksByPlaylist(CallbackContext callbackContext, long playlistId, long offset);
     
     void getRadios(CallbackContext callbackContext);
 
-    void getTracksByRadios(CallbackContext callbackContext, long radioId);
+    void getTracksByRadios(CallbackContext callbackContext, long radioId, long offset);
 
     void getFlow(CallbackContext callbackContext);
 }

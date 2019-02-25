@@ -144,7 +144,7 @@ public class DeezerSDKController {
         };
         DeezerRequest request = DeezerRequestFactory.requestAlbumTracks(albumId);
         request.addParam("limit", "50");
-        request.addParam("index", offset);
+        request.addParam("index", Long.toString(offset));
         mConnect.requestAsync(request, listener);
     }
 
@@ -192,7 +192,7 @@ public class DeezerSDKController {
         };
         DeezerRequest request = DeezerRequestFactory.requestPlaylistTracks(playlistId);
         request.addParam("limit", "50");
-        request.addParam("index", offset);
+        request.addParam("index", Long.toString(offset));
         mConnect.requestAsync(request, listener);
     }
 
@@ -240,7 +240,7 @@ public class DeezerSDKController {
         };
         DeezerRequest request = DeezerRequestFactory.requestRadioTracks(radioId);
         request.addParam("limit", "50");
-        request.addParam("index", offset);
+        request.addParam("index", Long.toString(offset));
         mConnect.requestAsync(request, listener);
     }
 

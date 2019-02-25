@@ -192,9 +192,10 @@ public class DeezerPlugin extends CordovaPlugin {
             });
         } else if(action.equals(METHOD_GET_TRACKS_BY_ALBUM)){
             long albumId = args.getLong(0);
+            long offset = args.getLong(1);
             this.cordova.getThreadPool().execute(new Runnable() {
                 public void run() {
-                    mListener.getTracksByAlbum(callbackContext, albumId);
+                    mListener.getTracksByAlbum(callbackContext, albumId, offset);
                 }
             });
         } else if(action.equals(METHOD_GET_PLAYLISTS)){
@@ -205,9 +206,10 @@ public class DeezerPlugin extends CordovaPlugin {
             });
         } else if(action.equals(METHOD_GET_TRACKS_BY_PLAYLIST)){
             long playlistId = args.getLong(0);
+            long offset = args.getLong(1);
             this.cordova.getThreadPool().execute(new Runnable() {
                 public void run() {
-                    mListener.getTracksByPlaylist(callbackContext, playlistId);
+                    mListener.getTracksByPlaylist(callbackContext, playlistId, offset);
                 }
             });
         }  else if(action.equals(METHOD_GET_RADIOS)){
@@ -218,9 +220,10 @@ public class DeezerPlugin extends CordovaPlugin {
             });
         } else if(action.equals(METHOD_GET_TRACKS_BY_RADIO)){
             long radioId = args.getLong(0);
+            long offset = args.getLong(1);
             this.cordova.getThreadPool().execute(new Runnable() {
                 public void run() {
-                    mListener.getTracksByRadio(callbackContext, radioId);
+                    mListener.getTracksByRadio(callbackContext, radioId, offset);
                 }
             });
         } else if(action.equals(METHOD_GET_FLOW)){

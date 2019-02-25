@@ -19,7 +19,7 @@ module.exports = {
       []
     );
   },
-  getTracksByAlbum: function(success, error, albumId) {
+  getTracksByAlbum: function(success, error, albumId, offset) {
     exec(
       success || function() {},
       error || function() {},
@@ -37,7 +37,7 @@ module.exports = {
       []
     );
   },
-  getTracksByPlaylist: function(success, error, playlistId) {
+  getTracksByPlaylist: function(success, error, playlistId, offset) {
     exec(
       success || function() {},
       error || function() {},
@@ -55,7 +55,7 @@ module.exports = {
       []
     );
   },
-  getTracksByRadio: function(success, error, radioId) {
+  getTracksByRadio: function(success, error, radioId, offset) {
     exec(
       success || function() {},
       error || function() {},

@@ -123,7 +123,7 @@ public class DeezerSDKController {
         mConnect.requestAsync(request, listener);
     }
 
-    public void getTracksByAlbum(final CallbackContext callbackContext, final long albumId) {
+    public void getTracksByAlbum(final CallbackContext callbackContext, final long albumId, long offset) {
         RequestListener listener = new JsonRequestListener() {
             public void onResult(Object result, Object requestId) {
                 List<Track> tracks = (List<Track>) result;
@@ -143,7 +143,8 @@ public class DeezerSDKController {
             public void onException(Exception e, Object requestId) {}
         };
         DeezerRequest request = DeezerRequestFactory.requestAlbumTracks(albumId);
-        request.addParam("limit", "1000");
+        request.addParam("limit", "50");
+        request.addParam("index", offset);
         mConnect.requestAsync(request, listener);
     }
 
@@ -170,7 +171,7 @@ public class DeezerSDKController {
         mConnect.requestAsync(request, listener);
     }
 
-    public void getTracksByPlaylist(final CallbackContext callbackContext, final long playlistId) {
+    public void getTracksByPlaylist(final CallbackContext callbackContext, final long playlistId, long offset) {
         RequestListener listener = new JsonRequestListener() {
             public void onResult(Object result, Object requestId) {
                 List<Track> tracks = (List<Track>) result;
@@ -190,7 +191,8 @@ public class DeezerSDKController {
             public void onException(Exception e, Object requestId) {}
         };
         DeezerRequest request = DeezerRequestFactory.requestPlaylistTracks(playlistId);
-        request.addParam("limit", "1000");
+        request.addParam("limit", "50");
+        request.addParam("index", offset);
         mConnect.requestAsync(request, listener);
     }
 
@@ -217,7 +219,7 @@ public class DeezerSDKController {
         mConnect.requestAsync(request, listener);
     }
 
-    public void getTracksByRadio(final CallbackContext callbackContext, final long radioId) {
+    public void getTracksByRadio(final CallbackContext callbackContext, final long radioId, long offset) {
         RequestListener listener = new JsonRequestListener() {
             public void onResult(Object result, Object requestId) {
                 List<Track> tracks = (List<Track>) result;
@@ -237,7 +239,8 @@ public class DeezerSDKController {
             public void onException(Exception e, Object requestId) {}
         };
         DeezerRequest request = DeezerRequestFactory.requestRadioTracks(radioId);
-        request.addParam("limit", "1000");
+        request.addParam("limit", "50");
+        request.addParam("index", offset);
         mConnect.requestAsync(request, listener);
     }
 
